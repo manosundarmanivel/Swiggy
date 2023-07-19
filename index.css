@@ -1,0 +1,47 @@
+.nav{
+    display: flex;
+    
+}
+.nav-items > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    
+}
+.nav-items > ul > li {
+    display: block;
+ 
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.nav > a > img {
+    width: 200px;
+}
+.card 
+{
+    width: 200px;
+    height: 500px;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+    
+}
+.card > img {
+    width: 100%;
+}
+.restaruntCard{
+    display: flex;
+    flex-wrap: wrap;
+}
+.Shimmer {
+    width: 200px;
+    height: 500px;
+    padding: 10px;
+    margin: 10px;
+    background-color: lightgrey;
+}
+body {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+  }

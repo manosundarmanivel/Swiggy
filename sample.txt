@@ -1,0 +1,285 @@
+React Components
+->Functional - NEW 
+->Class Based Components - OLD
+Name of the Components start with capital letter 
+To render functional Components < Function />
+
+Components composition - using functional components inside the functional components 
+
+JSX can have only one parent 
+if we need to use more than one parent , put it inside the div or use React.Fragment components
+React.Fragment - > is a empty component 
+<> write inside this </> == <React.Fragment> code <React.Fragment/>
+
+Config Driven UI
+
+props - properties => passing the data into the functional component or class components
+... -> spread operator
+the data that we send as props will be the object... which can be accessed by props.nameOfTheAttribute.ValueInTheData
+to send multiple props like name , place , distance we used to send the props as name = restarunt.data.name , palce = restarunt.data.palce..etc
+to avoid this we use ...restarunt.data 
+we access these data by {name , place , distance}
+
+when there is list of object , we need to use map....
+restaruntlist.map((restarunt)=>(return(
+    some JSX code
+)))
+
+Virtual DOM :
+-> Reconcilation: is an Algorithm that react uses to div one tree from other and it determines what needs to be changed in the UI 
+ans just renders the small portion of the code and do not render the whole one... which makes the react faster
+
+-> to archive this we need to use keys -> To represent the elements uniquely
+-> React Fiber - new Reconcilation engine which came in react 16 
+
+-> should not use map index as the key...
+
+exporting a components can be done in two ways
+1. default exporting -> export default Title - import Title from ./component
+2. named exporting -> export Title = () => {} - import {Title} from ./component
+
+Every component in react maintain a state , to create a local variable which maintain the state
+const searchText = "KFC" -> this won't work .. because it is a normal js variable declaration, insted create a useState() -> Hook
+const [searchText] = useState("KFC") -> this is how default value is assigned to a state variable
+Hook -> just a normal function and import {useState} from "react";
+Hooks are used to create state variable
+useState function returns a array , the first element of the array is your variable name
+
+To change the value of the state variable , we use function
+const [searchText , setSearchText] = useState()
+setSearchText("passing values that we need to set to the searchText variable")
+onChange = {(e)=>{
+    setSearchText(e.target.value)
+}}
+e.target.value -> any value that we type in input
+
+why react is faster?
+-> it has faster DOM manipulation
+-> Reconcilation
+-> Virtual DOM
+
+
+when an element is changed using state variable the whole component is refreshed by the react 
+
+MicroServices:
+-> Monolith architechere
+->sepration of concern in microservices
+
+Same Domain name but different port are matched with different directory
+
+ex: Swiggy.com   port ->3000 -> /
+                 port ->4000 ->/dapi
+                 port ->5000 ->/ notification
+This is how microservices works
+
+
+How to Load an API?
+1. Load => Call API => Render The Page
+2. Load => Show Something to user => Get API Call => Update the UI 
+
+2 one is the efficient way of calling API.. which can be done by the Hook => useEffect() 
+useEffect() => import {useEffect} from "react";
+
+useEffect(CallBack Function)
+useEffect(()=>{}) 
+CallBack Function is called when ever the useEffect is called
+For each render the CallBack function will be called which is not an efficient way
+So, to avoid that we add dependency array [] to the useEffect
+i.e, useEffect(()=>{},[]) -> now it will called only one time and be idle 
+empty dependency array => will be called one after the render
+Suppose , you need to call the CallBack function whenever the searchText state changes , you can do that by
+
+useEffect(()=>{},[searchText]) -> here useEffect is depend on the state variable searchText , so whenever the state of the searchText
+changes ,the CallBack Function will be called and renders  
+
+So API can be called inside a empty dependency array 
+useEffect(()=>{
+    API Call
+},[]) -> because it is called only once
+
+useEffect will be called after each render => useEffect(()=>{}) -> because here no dependency array
+useEffect will be called once after initial render => useEffect(()=>{},[]) -> empty dependency array
+
+async function GetResrurantData(){
+    const data = await fetch("api link");
+    const json = data.json();
+}
+
+Swiggy API = "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+when we call Swiggy API directly through the API call from local host , our browser will not allow
+so need to install CORS extention in chrome browser
+
+Read About Optional Chaining
+Read About Shimmer UI
+
+** Don't create a component inside a component 
+** Never write useState inside if else
+** Never write it inside the for loop
+** Never use useState outside a functional component
+** Always try to use CDN for images
+formik -> used for creating forms
+
+
+react-router-dom Library
+createBrowserRouter -> function from react-router-dom Library
+RouterProvider -> is a component
+
+anchor tag refresh the whole page which is very bad...
+Single Page Application uses - > client side routing
+There are two types of routing
+1.client side routing -> without network call we will be routing into another page
+2.server side routing -> all our pages comming from server
+
+to avoid the loading of whole page , react-router-dom provides us Link->component
+insted of "a" use "Link" 
+insted of "href" use "to"
+
+Nested Routing:
+if path is "/" -> i need to load some component
+if my path is "/about" -> i need to load about component
+
+need to make the component into the child of main component
+const Approuter = createBrowserRouter([
+    {
+        path:"/",
+        element: < Main Component/>
+        children: [
+            {
+                path: "/about",
+                element: < Child Component/>
+            }
+        ]
+    }
+])
+
+const AppLayout = () =>{
+    return(
+        <Header/>
+        {outlet}
+        <Outlet/>
+        <Footer/>
+    )
+}
+
+outlet is area where i can fill the required component which i need to show like home , about , contatc ..etc
+
+react-router-dom provides an Outlet component
+Outlet will be filled with the children configuration 
+whatever the children that we have written will go into the outlet..
+
+Dynamic Routing :
+how to read Dynamic Url -> useParams
+
+Object.values(key value objects) => will be converted into array of object => so now it can be mapped
+
+for createBrowserRouter :
+to keep profile inside the about page we need to use the array of path
+i.e .. parent -> About
+       children -> profile
+       in path : "/profile" -> localhost:1234/profile
+       in path :"profile" -> localhost:1234/about/profile
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+10. Let's get Classy.mp4
+
+Class Based Components:
+
+            -> render method return some JSX
+            -> import is same as functional component
+            -> only difference is that we use it from different file 
+
+            import React from "react";
+
+            class Profile extends React.Component {
+                constructor(props)
+                {
+                    super(props)
+                    // Create State
+                    //like we use this.props.name , we can use this.state to create it
+                    this.state = {
+                        count:0
+                    }
+
+                    // which is equivalent to => const [count] = useState(0)
+                    to set the value to count 
+                    use --->  in class components 
+                    onClick ={()=>{
+                        this.setState(count : 1)
+                    }}
+                    which is same as ---> in functional components
+                    onClick ={()=>{
+                        setCount(1)
+                    }}
+
+                    componentDidMount(){
+                            //API Call is done here
+                                        }
+
+
+                }
+
+                render(){
+                        return 
+                        <h1>{this.props.name} </h1>
+                        <h1>{this.state.count} </h1>
+                        ;
+                }
+            }
+
+            export default profile;
+    
+--> constructor() will be called first
+--> render() -> if render has another component then it will render that component in the order of constructor(), render(),componentDidMount(),
+-->componentDidMount()
+
+parent - constructor
+parent - render
+child1 - constructor
+child1 - render
+child2 - constructor
+child2 - render
+child1 - componentDidMount
+child2 - componentDidMount
+parent - componentDidMount
+
+
+Render Phase -> constructor and render is called
+Commit Phase -> react actually updating the dom , componentDidMount is called
+
+we can  make componentDidMount as async but we cannot give async for useEffect . why ?
+componentDidMount will perform differently when we do an API call
+when we out async before the componentDidMount , it will dely and mean while the parent componentDidMount will be called
+
+componentDidMount -> called when after 1st Render
+componentDidUpdate -> after every next Render, if we want to render when the state of the variable changes then we use if else
+componentWillUnMount -> called when , when we are leaving the page , because 
+React is the Single Page Component
+
+componentDidMount(){
+    this.timer = setTimer(()=>{
+        console.log("timer")
+    },1000)
+}
+
+componentWillUnMount(){
+    clearInterval(this.timer);
+}
+
+same this happens in functional Components
+useEffect has the return function when we want to unmount the component
+
+useEffect(()=>{
+    const timer = setTimer(()=>{
+        console.log("timer")
+    },1000)
+    
+return() =>{
+    clearInterval(timer);
+}
+},[])
+
+res
